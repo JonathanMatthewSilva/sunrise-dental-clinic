@@ -2,10 +2,10 @@ const Api = (function () {
   "use strict";
 
   const config = {
-    BASE_URL: "http://localhost:8080/api",
-    USE_MOCK_FALLBACK: false,
-    REQUEST_TIMEOUT_MS: 8000
-  };
+  BASE_URL: "https://sunrise-dental-clinic-f02i.onrender.com/api",
+  USE_MOCK_FALLBACK: false,
+  REQUEST_TIMEOUT_MS: 8000
+};
 
   const endpoints = {
     login: () => "/auth/login",
