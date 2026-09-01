@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help · Sunrise Dental Clinic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="help">
+
+<div class="layout">
+  <aside id="sidebar"></aside>
+
+  <div class="main">
+    <header id="topbar"></header>
+
+    <main class="content">
+      <div class="page-head">
+        <div>
+          <h1>Help &amp; User Guide</h1>
+          <p>Step-by-step instructions for front-desk and administrative staff.</p>
+        </div>
+        <a class="btn btn-secondary" href="dashboard.html">Back to dashboard</a>
+      </div>
+
+      <div class="grid grid-2">
+
+        <section class="card" style="margin-top:0">
+          <div class="card-head"><div><h2>1. Logging in</h2><p>Starting a clinic session</p></div></div>
+          <div class="card-body">
+            <ol class="help-steps">
+              <li><div><strong>Open the system</strong>The sign-in screen appears automatically.</div></li>
+              <li><div><strong>Enter your credentials</strong>Use the username and password issued by the clinic administrator.</div></li>
+              <li><div><strong>Select "Sign in"</strong>The clinic server verifies your account and opens the dashboard.</div></li>
+              <li><div><strong>If sign-in fails</strong>Read the red message above the form and check that the username and password have been entered correctly. Contact the system administrator if the problem continues.</div></li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:0">
+          <div class="card-head"><div><h2>2. Registering an appointment</h2><p>Booking a patient visit</p></div></div>
+          <div class="card-body">
+            <ol class="help-steps">
+              <li><div><strong>Open Appointments → Register appointment</strong>Or use the "New appointment" button on the dashboard.</div></li>
+              <li><div><strong>Complete the patient details</strong>Name, address and a 10-digit contact number.</div></li>
+              <li><div><strong>Choose dentist, treatment, date and time</strong>Clinic hours are 08:00 – 19:30.</div></li>
+              <li><div><strong>Select "Submit appointment"</strong>The server checks dentist availability and issues the appointment number.</div></li>
+              <li><div><strong>Give the number to the patient</strong>It is displayed in the green confirmation panel and is needed for all future actions.</div></li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:0">
+          <div class="card-head"><div><h2>3. Searching for an appointment</h2><p>Finding an existing booking</p></div></div>
+          <div class="card-body">
+            <ol class="help-steps">
+              <li><div><strong>Open Appointments → Search appointment</strong></div></li>
+              <li><div><strong>Type the appointment number</strong>For example <span class="mono">APT-2026-0143</span>.</div></li>
+              <li><div><strong>Select "Search"</strong>The full record and its current status are displayed.</div></li>
+              <li><div><strong>Nothing found?</strong>A friendly message is shown — re-check the number on the patient slip.</div></li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:0">
+          <div class="card-head"><div><h2>4. Updating or cancelling</h2><p>Amending a booking</p></div></div>
+          <div class="card-body">
+            <ol class="help-steps">
+              <li><div><strong>Open Appointments → Update / Cancel</strong>Enter the appointment number and select "Load record".</div></li>
+              <li><div><strong>Edit the details</strong>Any field can be corrected, including the dentist and time slot.</div></li>
+              <li><div><strong>Select "Update appointment"</strong>Confirm the dialogue; availability is re-checked by the server.</div></li>
+              <li><div><strong>To cancel</strong>Select "Cancel appointment" and confirm. The slot is released and the status becomes <span class="badge badge-cancelled">cancelled</span>.</div></li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:0">
+          <div class="card-head"><div><h2>5. Generating a bill</h2><p>Charging for a completed visit</p></div></div>
+          <div class="card-body">
+            <ol class="help-steps">
+              <li><div><strong>Open Billing</strong>Enter the appointment number and select "Find appointment".</div></li>
+              <li><div><strong>Check the patient and treatment summary</strong>Make sure the correct visit has been loaded.</div></li>
+              <li><div><strong>Select "Generate bill"</strong>The server calculates the consultation fee, treatment fee and total.</div></li>
+              <li><div><strong>Select "Print receipt"</strong>A clean, print-friendly receipt is produced for the patient.</div></li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="card" style="margin-top:0">
+          <div class="card-head"><div><h2>6. Viewing reports</h2><p>Daily and financial summaries</p></div></div>
+          <div class="card-body">
+            <ol class="help-steps">
+              <li><div><strong>Open Reports</strong>The last seven days are loaded by default.</div></li>
+              <li><div><strong>Choose a period</strong>Set the from/to dates and select "Apply period".</div></li>
+              <li><div><strong>Review the tables</strong>Appointments by date, appointments by dentist, treatment frequency and revenue.</div></li>
+              <li><div><strong>Print if required</strong>Use "Print report" to produce a copy for the clinic manager.</div></li>
+            </ol>
+          </div>
+        </section>
+      </div>
+
+      <section class="card">
+        <div class="card-head"><div><h2>Logging out</h2><p>Ending your shift safely</p></div></div>
+        <div class="card-body">
+          <p class="muted">Select <strong>Logout</strong> in the sidebar or in the top-right corner and confirm.
+             The clinic server ends your session and you are returned to the sign-in screen.
+             Always log out before leaving the reception desk unattended.</p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><div><h2>Frequently asked questions</h2></div></div>
+        <div class="card-body">
+          <details class="faq">
+            <summary>Why was my appointment rejected?</summary>
+            <p>The server refuses bookings that clash with an existing appointment for the same dentist,
+               or that fall outside clinic hours. The reason is displayed in the red message above the form.</p>
+          </details>
+          <details class="faq">
+            <summary>Can I change a fee on the billing page?</summary>
+            <p>No. Fees come from the treatment price list held in the clinic database and are calculated
+               by the server, which prevents billing errors. Contact the administrator to amend a price.</p>
+          </details>
+          <details class="faq">
+            <summary>A cancelled appointment still appears in search.</summary>
+            <p>Records are never deleted — cancelling only changes the status to "cancelled" so the clinic
+               keeps a complete history for reporting.</p>
+          </details>
+          <details class="faq">
+            <summary>Who do I contact for support?</summary>
+            <p>Clinic IT support: <a href="mailto:support@sunrisedental.lk">support@sunrisedental.lk</a> · extension 210.</p>
+          </details>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/help.js"></script>
+</body>
+</html>

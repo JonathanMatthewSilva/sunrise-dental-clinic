@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in · Sunrise Dental Clinic Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="login-page">
+
+    <!-- Branding panel -->
+    <aside class="login-aside">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="brand-mark">SD</div>
+          <div>
+            <strong style="display:block;font-size:15px">Sunrise Dental Clinic</strong>
+            <span style="font-size:12px;color:rgba(255,255,255,.6);letter-spacing:.04em;text-transform:uppercase">Colombo 05</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2>Clinic Management System</h2>
+        <p>An internal system for authorised Sunrise Dental staff to manage patient
+           appointments, treatments, billing and clinic reports.</p>
+
+        <ul class="login-points">
+          <li><span class="tick">✓</span><span>Prevents double bookings with server-side availability checks</span></li>
+          <li><span class="tick">✓</span><span>Central patient and appointment records</span></li>
+          <li><span class="tick">✓</span><span>Accurate, itemised billing and printable receipts</span></li>
+          <li><span class="tick">✓</span><span>Daily appointment and revenue reporting</span></li>
+        </ul>
+      </div>
+
+      <div class="foot">
+        Authorised staff access only<br>
+        © 2026 Sunrise Dental Clinic
+      </div>
+    </aside>
+
+    <!-- Sign-in panel -->
+    <main class="login-panel">
+      <div class="login-box">
+
+        <div class="brand">
+          <div class="brand-mark">SD</div>
+          <div class="brand-text">
+            <strong>Sunrise Dental Clinic</strong>
+            <span>Clinic System</span>
+          </div>
+        </div>
+
+        <h1>Staff sign in</h1>
+        <p class="sub">Enter the credentials issued by the clinic administrator.</p>
+
+        <!-- Error / status messages returned by the Java backend appear here -->
+        <div id="login-alert" class="hidden"></div>
+
+        <form id="login-form" class="login-form" novalidate autocomplete="off">
+
+          <div class="field">
+            <label for="username">
+              Username <span class="req">*</span>
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="e.g. ishara.g"
+              autocomplete="username"
+            >
+            <div class="field-error" id="username-error"></div>
+          </div>
+
+          <div class="field">
+            <label for="password">
+              Password <span class="req">*</span>
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+            >
+            <div class="field-error" id="password-error"></div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            id="login-btn"
+          >
+            Sign in
+          </button>
+
+        </form>
+
+        <div class="login-foot">
+          Sessions are securely created and validated by the clinic server.
+          Contact the system administrator if you experience difficulty signing in.
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/auth.js"></script>
+
+  
+
+</body>
+</html>

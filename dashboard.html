@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard · Sunrise Dental Clinic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="dashboard">
+
+<div class="layout">
+  <!-- Sidebar and top bar are rendered by js/ui.js so the navigation is
+       defined once and stays consistent on every screen. -->
+  <aside id="sidebar"></aside>
+
+  <div class="main">
+    <header id="topbar"></header>
+
+    <main class="content">
+      <div id="env-note"></div>
+      <div id="dashboard-alert"></div>
+
+      <div class="page-head">
+        <div>
+          <h1 id="greeting">Welcome back.</h1>
+          <p>Here is the current position of the clinic for today.</p>
+        </div>
+        <a class="btn btn-primary" href="appointments.html?tab=register">+ New appointment</a>
+      </div>
+
+      <!-- Summary cards: values come from GET /api/dashboard/summary -->
+      <section class="grid grid-4">
+        <article class="stat">
+          <div class="stat-top">
+            <span class="stat-label">Today's appointments</span>
+            <span class="stat-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span>
+          </div>
+          <div class="stat-value" id="stat-appointments">—</div>
+          <div class="stat-note">Scheduled across all dentists</div>
+        </article>
+
+        <article class="stat">
+          <div class="stat-top">
+            <span class="stat-label">Registered patients</span>
+            <span class="stat-icon violet"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M16 20v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1"/><circle cx="9.5" cy="8" r="3.5"/><path d="M21 20v-1a4 4 0 0 0-3-3.8"/></svg></span>
+          </div>
+          <div class="stat-value" id="stat-patients">—</div>
+          <div class="stat-note">Total records in the system</div>
+        </article>
+
+        <article class="stat">
+          <div class="stat-top">
+            <span class="stat-label">Available dentists</span>
+            <span class="stat-icon green"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c-2-1.6-5-1.7-6.4-.2C4 6.5 4.4 9 5 11c.6 2 .7 4.3 1 6.4.2 1.4.6 2.6 1.6 2.6 1.2 0 1.4-1.6 1.8-3.4.3-1.4.7-2.6 2.6-2.6s2.3 1.2 2.6 2.6c.4 1.8.6 3.4 1.8 3.4 1 0 1.4-1.2 1.6-2.6.3-2.1.4-4.4 1-6.4.6-2 1-4.5-.6-6.2C17 3.3 14 3.4 12 5Z"/></svg></span>
+          </div>
+          <div class="stat-value" id="stat-dentists">—</div>
+          <div class="stat-note" id="note-dentists">On duty today</div>
+        </article>
+
+        <article class="stat">
+          <div class="stat-top">
+            <span class="stat-label">Revenue today</span>
+            <span class="stat-icon amber"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg></span>
+          </div>
+          <div class="stat-value" id="stat-revenue">—</div>
+          <div class="stat-note" id="note-revenue">Bills issued today</div>
+        </article>
+      </section>
+
+      <!-- Quick actions -->
+      <section class="card">
+        <div class="card-head"><div><h2>Quick actions</h2><p>Common front-desk tasks</p></div></div>
+        <div class="card-body">
+          <div class="quick-actions">
+            <a class="qa" href="appointments.html?tab=register">
+              <span class="qa-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+              <span>Register appointment<span class="qa-sub">Book a new patient visit</span></span>
+            </a>
+            <a class="qa" href="appointments.html?tab=search">
+              <span class="qa-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+              <span>Find appointment<span class="qa-sub">Search by appointment number</span></span>
+            </a>
+            <a class="qa" href="billing.html">
+              <span class="qa-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg></span>
+              <span>Generate bill<span class="qa-sub">Issue a receipt for a visit</span></span>
+            </a>
+            <a class="qa" href="reports.html">
+              <span class="qa-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+              <span>View reports<span class="qa-sub">Daily and revenue summaries</span></span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recent appointments: GET /api/dashboard/summary -> recentAppointments -->
+      <section class="card">
+        <div class="card-head">
+          <div><h2>Recent appointments</h2><p>Latest bookings recorded by the front desk</p></div>
+          <a class="btn btn-secondary btn-sm" href="appointments.html?tab=search">Search records</a>
+        </div>
+        <div class="table-wrap">
+          <table class="data">
+            <thead>
+              <tr>
+                <th>Appointment No.</th><th>Patient</th><th>Dentist</th>
+                <th>Treatment</th><th>Date</th><th>Time</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="recent-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointments · Sunrise Dental Clinic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="appointments">
+
+<div class="layout">
+  <aside id="sidebar"></aside>
+
+  <div class="main">
+    <header id="topbar"></header>
+
+    <main class="content">
+      <div id="env-note"></div>
+
+      <div class="page-head">
+        <div>
+          <h1>Appointment Manager</h1>
+          <p>Register new visits, look up existing bookings and amend or cancel them.</p>
+        </div>
+      </div>
+
+      <!-- Tab navigation between the three appointment workflows -->
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="register" type="button">Register appointment</button>
+        <button class="tab" data-tab="search" type="button">Search appointment</button>
+        <button class="tab" data-tab="manage" type="button">Update / Cancel</button>
+      </div>
+
+      <!-- ============================ REGISTER ========================= -->
+      <section class="tab-panel" data-panel="register">
+        <div class="card">
+          <div class="card-head">
+            <div><h2>New appointment</h2><p>All fields marked with * are required</p></div>
+          </div>
+
+          <form id="register-form" novalidate autocomplete="off">
+            <div class="card-body">
+              <div id="register-alert"></div>
+
+              <!-- Success panel: appointment number is issued by the backend -->
+              <div id="register-success" class="alert alert-success hidden" style="display:block">
+                <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center">
+                  <div>
+                    <strong>Appointment confirmed.</strong>
+                    <div style="margin-top:4px">Appointment number:
+                      <span class="mono" id="created-number" style="font-size:15px;font-weight:700">—</span>
+                    </div>
+                    <div class="small" id="created-summary" style="margin-top:2px"></div>
+                  </div>
+                  <a class="btn btn-secondary btn-sm" id="created-bill-link" href="billing.html">Open billing</a>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="field">
+                  <label for="reg-patientName">Patient name <span class="req">*</span></label>
+                  <input type="text" id="reg-patientName" placeholder="e.g. Kavindu Jayasinghe">
+                  <div class="field-error" id="reg-patientName-error"></div>
+                </div>
+
+                <div class="field">
+                  <label for="reg-contact">Contact number <span class="req">*</span></label>
+                  <input type="tel" id="reg-contact" placeholder="07XXXXXXXX" maxlength="12">
+                  <div class="field-error" id="reg-contact-error"></div>
+                </div>
+
+                <div class="field span-2">
+                  <label for="reg-address">Address <span class="req">*</span></label>
+                  <input type="text" id="reg-address" placeholder="e.g. 42/1 Galle Road, Colombo 03">
+                  <div class="field-error" id="reg-address-error"></div>
+                </div>
+
+                <div class="field">
+                  <label for="reg-dentist">Dentist <span class="req">*</span></label>
+                  <select id="reg-dentist" data-placeholder="Select a dentist"><option value="">Loading dentists…</option></select>
+                  <div class="field-error" id="reg-dentist-error"></div>
+                </div>
+
+                <div class="field">
+                  <label for="reg-treatment">Treatment type <span class="req">*</span></label>
+                  <select id="reg-treatment" data-placeholder="Select a treatment"><option value="">Loading treatments…</option></select>
+                  <div class="field-error" id="reg-treatment-error"></div>
+                </div>
+
+                <div class="field">
+                  <label for="reg-date">Appointment date <span class="req">*</span></label>
+                  <input type="date" id="reg-date">
+                  <div class="field-error" id="reg-date-error"></div>
+                </div>
+
+                <div class="field">
+                  <label for="reg-time">Appointment time <span class="req">*</span></label>
+                  <input type="time" id="reg-time" step="900" min="08:00" max="19:30">
+                  <span class="hint">Clinic hours: 08:00 – 19:30. Availability is verified by the server.</span>
+                  <div class="field-error" id="reg-time-error"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-foot">
+              <button type="submit" class="btn btn-primary" id="register-btn">Submit appointment</button>
+              <button type="reset" class="btn btn-secondary">Reset form</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ============================= SEARCH ========================== -->
+      <section class="tab-panel hidden" data-panel="search">
+        <div class="card">
+          <div class="card-head"><div><h2>Search appointment</h2><p>Look up a booking using its appointment number</p></div></div>
+          <div class="card-body">
+            <form id="search-form" class="search-row" novalidate autocomplete="off">
+              <div class="field">
+                <label for="search-number">Appointment number</label>
+                <input type="search" id="search-number" placeholder="e.g. APT-2026-0143">
+                <div class="field-error" id="search-number-error"></div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="margin-bottom:18px">Search</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Result / not-found state rendered by js/appointments.js -->
+        <div id="search-result" style="margin-top:18px"></div>
+      </section>
+
+      <!-- ========================= UPDATE / CANCEL ===================== -->
+      <section class="tab-panel hidden" data-panel="manage">
+        <div class="card">
+          <div class="card-head"><div><h2>Update or cancel an appointment</h2><p>Load the record first, then amend the details</p></div></div>
+          <div class="card-body">
+            <form id="load-form" class="search-row" novalidate autocomplete="off">
+              <div class="field">
+                <label for="manage-number">Appointment number</label>
+                <input type="search" id="manage-number" placeholder="e.g. APT-2026-0144">
+                <div class="field-error" id="manage-number-error"></div>
+              </div>
+              <button type="submit" class="btn btn-primary" style="margin-bottom:18px">Load record</button>
+            </form>
+          </div>
+        </div>
+
+        <div id="manage-empty" style="margin-top:18px"></div>
+
+        <div id="manage-panel" class="card hidden" style="margin-top:18px">
+          <div class="card-head">
+            <div><h2>Editing <span class="mono" id="manage-ref">—</span></h2><p>Changes are validated again by the clinic server</p></div>
+            <span id="manage-status"></span>
+          </div>
+
+          <form id="update-form" novalidate autocomplete="off">
+            <input type="hidden" id="upd-number">
+            <div class="card-body">
+              <div id="manage-alert"></div>
+
+              <div class="form-grid">
+                <div class="field">
+                  <label for="upd-patientName">Patient name <span class="req">*</span></label>
+                  <input type="text" id="upd-patientName">
+                  <div class="field-error" id="upd-patientName-error"></div>
+                </div>
+
+                <div class="field">
+                  <label for="upd-contact">Contact number <span class="req">*</span></label>
+                  <input type="tel" id="upd-contact" maxlength="12">
+                  <div class="field-error" id="upd-contact-error"></div>
+                </div>
+
+                <div class="field span-2">
+                  <label for="upd-address">Address <span class="req">*</span></label>
+                  <input type="text" id="upd-address">
+                  <div class="field-error" id="upd-address-error"></div>
+                </div>
+
+                <div class="field">
+                  <label for="upd-dentist">Dentist <span class="req">*</span></label>
+                  <select id="upd-dentist" data-placeholder="Select a dentist"></select>
+                  <div class="field-error" id="upd-dentist-error"></div>
+                </div>
+
+                <div class="field">
+                  <label for="upd-treatment">Treatment type <span class="req">*</span></label>
+                  <select id="upd-treatment" data-placeholder="Select a treatment"></select>
+                  <div class="field-error" id="upd-treatment-error"></div>
+                </div>
+
+                <div class="field">
+                  <label for="upd-date">Appointment date <span class="req">*</span></label>
+                  <input type="date" id="upd-date">
+                  <div class="field-error" id="upd-date-error"></div>
+                </div>
+
+                <div class="field">
+                  <label for="upd-time">Appointment time <span class="req">*</span></label>
+                  <input type="time" id="upd-time" step="900" min="08:00" max="19:30">
+                  <div class="field-error" id="upd-time-error"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-foot">
+              <button type="submit" class="btn btn-primary" id="update-btn">Update appointment</button>
+              <button type="button" class="btn btn-danger" id="cancel-appt-btn">Cancel appointment</button>
+              <span class="small muted" style="align-self:center">A confirmation is requested before either action.</span>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/appointments.js"></script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billing · Sunrise Dental Clinic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="billing">
+
+<div class="layout">
+  <aside id="sidebar" class="no-print"></aside>
+
+  <div class="main">
+    <header id="topbar" class="no-print"></header>
+
+    <main class="content">
+      <div id="env-note" class="no-print"></div>
+
+      <div class="page-head no-print">
+        <div>
+          <h1>Billing &amp; Receipts</h1>
+          <p>Fees are calculated by the clinic server from the stored treatment price list.</p>
+        </div>
+      </div>
+
+      <!-- 1. Select the appointment -->
+      <section class="card no-print">
+        <div class="card-head">
+          <div>
+            <h2>Select appointment</h2>
+            <p>Search using the appointment number</p>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <form id="bill-search-form" class="search-row" novalidate autocomplete="off">
+            <div class="field">
+              <label for="bill-number">Appointment number</label>
+              <input type="search" id="bill-number" placeholder="e.g. APT-2026-0143">
+              <div class="field-error" id="bill-number-error"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-bottom:18px">
+              Find appointment
+            </button>
+          </form>
+
+          <div id="bill-alert"></div>
+          <div id="bill-empty"></div>
+        </div>
+      </section>
+
+      <!-- 2. Patient / treatment summary + fee breakdown -->
+      <section id="bill-summary" class="grid grid-2 hidden no-print" style="margin-top:18px">
+
+        <div class="card" style="margin-top:0">
+          <div class="card-head">
+            <div>
+              <h2>Patient &amp; treatment</h2>
+              <p>Details of the selected visit</p>
+            </div>
+
+            <span id="sum-status"></span>
+          </div>
+
+          <div class="card-body">
+            <div class="dl" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+
+              <div>
+                <div class="dt">Appointment No.</div>
+                <div class="dd mono" id="sum-number">—</div>
+              </div>
+
+              <div>
+                <div class="dt">Patient</div>
+                <div class="dd" id="sum-patient">—</div>
+              </div>
+
+              <div>
+                <div class="dt">Contact</div>
+                <div class="dd" id="sum-contact">—</div>
+              </div>
+
+              <div>
+                <div class="dt">Address</div>
+                <div class="dd" id="sum-address">—</div>
+              </div>
+
+              <div>
+                <div class="dt">Dentist</div>
+                <div class="dd" id="sum-dentist">—</div>
+              </div>
+
+              <div>
+                <div class="dt">Treatment</div>
+                <div class="dd" id="sum-treatment">—</div>
+              </div>
+
+              <div>
+                <div class="dt">Date</div>
+                <div class="dd" id="sum-date">—</div>
+              </div>
+
+              <div>
+                <div class="dt">Time</div>
+                <div class="dd" id="sum-time">—</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:0">
+
+          <div class="card-head">
+            <div>
+              <h2>Bill summary</h2>
+              <p>Treatment and consultation charges for the selected appointment</p>
+            </div>
+
+            <span id="fee-paystatus">
+              <span class="badge badge-neutral">not billed</span>
+            </span>
+          </div>
+
+          <div class="card-body">
+            <div class="fee-list">
+
+              <div class="fee-row">
+                <span class="fee-label">Bill number</span>
+                <span class="fee-value mono" id="fee-billno">—</span>
+              </div>
+
+              <div class="fee-row">
+                <span class="fee-label">Consultation fee</span>
+                <span class="fee-value" id="fee-consultation">—</span>
+              </div>
+
+              <div class="fee-row">
+                <span class="fee-label">Treatment fee</span>
+                <span class="fee-value" id="fee-treatment">—</span>
+              </div>
+
+              <div class="fee-row total">
+                <span class="fee-label">Total amount</span>
+                <span class="fee-value" id="fee-total">—</span>
+              </div>
+
+            </div>
+
+            <p class="small muted" style="margin-top:14px">
+              Charges are calculated automatically using the clinic's treatment price list.
+            </p>
+          </div>
+
+          <div class="card-foot">
+            <button class="btn btn-primary" id="generate-bill-btn" disabled>
+              Generate bill
+            </button>
+
+            <button class="btn btn-secondary" id="print-receipt-btn" disabled>
+              Print receipt
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 3. Printable receipt -->
+      <section id="receipt-wrap" class="hidden" style="margin-top:18px">
+
+        <div class="card-head no-print" style="border:none;padding-left:0">
+          <div>
+            <h2>Receipt preview</h2>
+            <p>This is exactly what will be printed for the patient</p>
+          </div>
+        </div>
+
+        <div class="receipt" id="receipt">
+
+          <div class="receipt-head">
+
+            <div>
+              <h2>Sunrise Dental Clinic</h2>
+
+              <div class="clinic-meta">
+                128 Havelock Road, Colombo 05, Sri Lanka<br>
+                Tel: +94 11 259 4400 · info@sunrisedental.lk
+              </div>
+            </div>
+
+            <div class="doc-meta">
+              <strong>PAYMENT RECEIPT</strong>
+              Bill No:
+              <span class="mono" id="receipt-billno">—</span><br>
+              Issued:
+              <span id="receipt-generated">—</span>
+            </div>
+
+          </div>
+
+          <div class="receipt-grid">
+
+            <div>
+              <div class="r-label">Appointment number</div>
+              <div class="r-value mono" id="receipt-apptno">—</div>
+            </div>
+
+            <div>
+              <div class="r-label">Appointment date &amp; time</div>
+              <div class="r-value" id="receipt-appt-datetime">—</div>
+            </div>
+
+            <div>
+              <div class="r-label">Patient name</div>
+              <div class="r-value" id="receipt-patient">—</div>
+            </div>
+
+            <div>
+              <div class="r-label">Contact number</div>
+              <div class="r-value" id="receipt-contact">—</div>
+            </div>
+
+            <div>
+              <div class="r-label">Address</div>
+              <div class="r-value" id="receipt-address">—</div>
+            </div>
+
+            <div>
+              <div class="r-label">Attending dentist</div>
+              <div class="r-value" id="receipt-dentist">—</div>
+            </div>
+
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th class="num">Amount</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Consultation fee</td>
+                <td class="num" id="receipt-consultation">—</td>
+              </tr>
+
+              <tr>
+                <td>
+                  Treatment —
+                  <span id="receipt-treatment">—</span>
+                </td>
+
+                <td class="num" id="receipt-treatment-fee">—</td>
+              </tr>
+
+              <tr class="total-row">
+                <td>Total payable</td>
+                <td class="num" id="receipt-total">—</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="receipt-grid" style="margin-bottom:10px">
+
+            <div>
+              <div class="r-label">Payment status</div>
+              <div class="r-value" id="receipt-paystatus">—</div>
+            </div>
+
+            <div>
+              <div class="r-label">Issued by</div>
+              <div class="r-value" id="receipt-issuedby">—</div>
+            </div>
+
+          </div>
+
+          <div class="receipt-foot">
+            Thank you for choosing Sunrise Dental Clinic. Please retain this receipt for your records.<br>
+            This is a computer-generated receipt issued by the Sunrise Dental Clinic Management System.
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/billing.js"></script>
+
+</body>
+</html>
