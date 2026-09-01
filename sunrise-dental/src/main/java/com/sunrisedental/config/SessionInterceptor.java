@@ -15,14 +15,19 @@ public class SessionInterceptor implements HandlerInterceptor {
             HttpServletResponse response,
             Object handler) throws Exception {
 
+        // Allow CORS preflight requests
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            return true;
+        }
+
         String uri = request.getRequestURI();
 
+        // Login must be publicly accessible
         if (uri.equals("/api/auth/login")) {
             return true;
         }
 
-        Object userId = request
-                .getSession(false) != null
+        Object userId = request.getSession(false) != null
                 ? request.getSession(false).getAttribute("userId")
                 : null;
 
